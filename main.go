@@ -1,3 +1,5 @@
+// Writing a basic web server in Go
+
 package main
 
 import (
@@ -12,12 +14,14 @@ func main() {
 	// HandleFunc is a convenience method on the go HTTP package
 	http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
 		log.Println("Hello World")
+
+		// Read everything from the body into the variable d, the data
 		d, err := ioutil.ReadAll(r.Body)
 		if err != nil {
 			http.Error(rw, "Oops", http.StatusBadRequest)
 			return
 		}
-
+		// Print string back to the rw which will be returned to the user
 		fmt.Fprintf(rw, "Hello %s", d)
 	})
 
@@ -26,5 +30,6 @@ func main() {
 		log.Println("Goodbye World")
 	})
 
+	// Convenience method that constructs an HTTP server and registers the default handler
 	http.ListenAndServe(":9090", nil)
 }
