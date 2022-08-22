@@ -1,3 +1,5 @@
+// Writing a basic web server in Go
+
 package main
 
 import (
@@ -12,6 +14,7 @@ import (
 )
 
 func main() {
+
 	// logger
 	l := log.New(os.Stdout, "product-api", log.LstdFlags)
 
@@ -39,6 +42,7 @@ func main() {
 		if err != nil {
 			l.Fatal(err)
 		}
+
 	}()
 
 	// Broadcase message on this channel whenever an os.Kill/Interrupt is recieved
