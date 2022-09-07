@@ -24,21 +24,21 @@ func (p *Product) FromJSON(r io.Reader) error {
 	return e.Decode(p)
 }
 
-// Products is a collection of product
+// Products is a collection of Product
 type Products []*Product
 
 // ToJSON serializes the contents of the collection to JSON
-// NewEncoder prodives better performance than json.Unmarshal as it does not
+// NewEncoder provides better performance than json.Unmarshal as it does not
 // have to buffer the output into an in memory slice of bytes
 // this reduces allocations and the overheads of the service
 //
-// https://pkg.go.dev/encoding/json#NewEncoder
+// https://golang.org/pkg/encoding/json/#NewEncoder
 func (p *Products) ToJSON(w io.Writer) error {
 	e := json.NewEncoder(w)
 	return e.Encode(p)
 }
 
-// GetProducts returns our productList
+// GetProducts returns a list of products
 func GetProducts() Products {
 	return productList
 }
@@ -48,7 +48,7 @@ func AddProduct(p *Product) {
 	productList = append(productList, p)
 }
 
-func UpdateProduct(id int, p *Product) error {
+func UpdateProduct(id int, p*Product) error {
 	_, pos, err := findProduct(id)
 	if err != nil {
 		return err
@@ -60,7 +60,6 @@ func UpdateProduct(id int, p *Product) error {
 	return nil
 }
 
-// Structured error
 var ErrProductNotFound = fmt.Errorf("Product not found")
 
 func findProduct(id int) (*Product, int, error) {
@@ -70,7 +69,7 @@ func findProduct(id int) (*Product, int, error) {
 		}
 	}
 
-	return nil, -1, ErrProductNotFound
+	return nil, -1, ErrProductNotFound 
 }
 
 func getNextID() int {
@@ -78,6 +77,8 @@ func getNextID() int {
 	return lp.ID + 1
 }
 
+// productList is a hard coded list of products for this
+// example data source
 var productList = []*Product{
 	&Product{
 		ID:          1,
