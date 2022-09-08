@@ -1,0 +1,6 @@
+# Ignore Binary or unecessary pkgs
+main
+*.tgz
+*.swp
+/go-microservices
+openapi-*.json
